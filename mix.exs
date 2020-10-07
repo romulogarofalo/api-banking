@@ -42,7 +42,10 @@ defmodule ApiBanking.MixProject do
       {:telemetry_poller, "~> 0.4"},
       {:gettext, "~> 0.11"},
       {:jason, "~> 1.0"},
-      {:plug_cowboy, "~> 2.0"}
+      {:plug_cowboy, "~> 2.0"},
+      {:guardian, "~> 2.0"},
+      {:comeonin, "~> 4.1"},
+      {:bcrypt_elixir, "~> 1.0"}
     ]
   end
 
