@@ -6,7 +6,7 @@ defmodule ApiBankingWeb.UserView do
   def render("created.json", %{
       user: %User{
         id: id,
-        user: user,
+        username: user,
         inserted_at: inserted_at
       },
       token: token

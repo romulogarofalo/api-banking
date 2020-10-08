@@ -2,9 +2,9 @@ defmodule ApiBanking.User.Create do
   alias ApiBanking.{Repo, User}
 
   def call(params) do
-    params
-    |> User.build()
-    |> create_user()
+    %User{}
+    |> User.changeset(params)
+    |> Repo.insert()
   end
 
   defp create_user({:ok, struct}), do: Repo.insert(struct)
