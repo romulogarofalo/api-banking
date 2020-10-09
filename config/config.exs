@@ -33,3 +33,6 @@ import_config "#{Mix.env()}.exs"
 config :api_banking, ApiBankingWeb.Auth.Guardian,
   issuer: "api_banking",
   secret_key: "1pfYar9bNIz+UIn/Y4ihkgEOLyIpDD2JSaTY4T68W4W9pHqQQckrcBhkucaD1mIV"
+
+config :money,
+  default_currency: :BRL,
