@@ -4,7 +4,7 @@ defmodule ApiBanking.Repo.Migrations.CreateUserTable do
   def change do
     create table(:users) do
       add :username, :string
-      add :hashed_password, :string
+      add :password_hash, :string
 
       timestamps()
     end

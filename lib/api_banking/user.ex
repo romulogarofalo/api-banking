@@ -3,7 +3,7 @@ defmodule ApiBanking.User do
   import Ecto.Changeset
 
   schema "users" do
-    field :hashed_password, :string
+    field :password_hash, :string
     field :username, :string
     field :password, :string, virtual: true
     timestamps()
@@ -17,13 +17,13 @@ defmodule ApiBanking.User do
     |> cast(attrs, @required_attrs)
     |> validate_required(@required_attrs)
     |> unique_constraint(:username)
-    |> put_hashed_password()
+    |> put_password_hash()
   end
 
-  defp put_hashed_password(changeset) do
+  defp put_password_hash(changeset) do
     case changeset do
       %Ecto.Changeset{valid?: true, changes: %{password: password}} ->
-        put_change(changeset, :hashed_password, Comeonin.Bcrypt.hashpwsalt(password))
+        put_change(changeset, :password_hash, Comeonin.Bcrypt.hashpwsalt(password))
 
       _ ->
         changeset
