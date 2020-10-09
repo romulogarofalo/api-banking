@@ -13,4 +13,13 @@ defmodule ApiBankingWeb.UserController do
       |> render("created.json", %{user: user, token: token})
     end
   end
+
+  def login(conn, params) do
+    with {:ok, user} <- ApiBanking.get_user(params),
+         {:ok, token, _decoded} <- Guardian.encode_and_sign(user) do
+      conn
+      |> put_status(:ok)
+      |> render("authenticated.json", %{user: user, token: token})
+    end
+  end
 end
