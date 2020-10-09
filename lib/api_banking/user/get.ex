@@ -20,6 +20,8 @@ defmodule ApiBanking.User.Get do
     Comeonin.Bcrypt.checkpw(password, password_hash)
   end
 
+  defp check_password(nil, _params), do: false
+
   defp handle_check(true, user), do: {:ok, user}
   defp handle_check(false, _user), do: {:error, message: "wrong credentials"}
 
