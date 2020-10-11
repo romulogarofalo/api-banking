@@ -27,14 +27,12 @@ defmodule ApiBanking.Transaction do
       %Ecto.Changeset{
         valid?: true,
         changes: %{
-          amount: amount,
           username_reciever_name: username_reciever
         }
       } ->
         %{id: user_id} = Repo.get_by(User, %{username: username_reciever})
 
         put_change(changeset, :username_reciever_id, user_id)
-        |> put_change(:amount, amount)
 
       _ ->
         changeset
