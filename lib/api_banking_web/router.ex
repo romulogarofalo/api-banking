@@ -10,7 +10,14 @@ defmodule ApiBankingWeb.Router do
 
     post "/signup", UserController, :create
     post "/login", UserController, :login
+    post "/transaction", TransactionController, :create
   end
+
+  # scope "/api", ApiBankingWeb do
+  #   pipe_through [:api, :authenticate]
+
+  #   post "/transaction", TransactionController, :create
+  # end
 
   # Enables LiveDashboard only for development
   #
