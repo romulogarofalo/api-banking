@@ -6,44 +6,35 @@ defmodule ApiBanking.Transaction do
 
   schema "transactions" do
     field :amount, Money.Ecto.Amount.Type
-    # maybe this shoud be a string, if the required get the type from here
+    field :username_reciever_name, :string, virtual: true
     belongs_to :username_sender, User, foreign_key: :username_sender_id
     belongs_to :username_reciever, User, foreign_key: :username_reciever_id
-    field :username_reciever_name, :string, virtual: true
 
     timestamps()
   end
 
-  @required_attrs [:username_reciever, :amount]
+  @required_attrs [:username_reciever_name, :username_sender_id, :amount]
 
-  def changeset(transaction, attrs, sender_id) do
+  def changeset(transaction, attrs) do
     transaction
     |> cast(attrs, @required_attrs)
     |> validate_required(@required_attrs)
-    |> get_ids_users(attrs, sender_id)
-
-    # |> update_changeset()
+    |> get_ids_users()
   end
 
-  defp get_ids_users(
-         %{username_reciever: username_reciever, amount: amount} = changeset,
-         _attrs,
-         sender_id
-       ) do
-    {:ok, user} = Repo.get_by(User, %{username: username_reciever})
-
+  defp get_ids_users(changeset) do
     case changeset do
       %Ecto.Changeset{
         valid?: true,
         changes: %{
-          username_sender_id: _sender_id,
-          username_reciever_id: _reciever_id,
-          amount: _amount
+          amount: amount,
+          username_reciever_name: username_reciever
         }
       } ->
-        put_change(changeset, :username_sender_id, sender_id)
-        put_change(changeset, :username_reciever_id, user.id)
-        put_change(changeset, :amount, %Money{currency: :BRL, amount: amount})
+        %{id: user_id} = Repo.get_by(User, %{username: username_reciever})
+
+        put_change(changeset, :username_reciever_id, user_id)
+        |> put_change(:amount, amount)
 
       _ ->
         changeset
