@@ -45,7 +45,8 @@ defmodule ApiBanking.MixProject do
       {:plug_cowboy, "~> 2.0"},
       {:guardian, "~> 2.0"},
       {:comeonin, "~> 4.1"},
-      {:bcrypt_elixir, "~> 1.0"}
+      {:bcrypt_elixir, "~> 1.0"},
+      {:money, "~> 1.8"}
     ]
   end
 
