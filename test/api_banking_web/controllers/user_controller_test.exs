@@ -4,14 +4,18 @@ defmodule ApiBankingWeb.Controllers.UserControllerTest do
   describe "create" do
     test "when send correct params for the first time, create a new user, return user and token 200",
          %{conn: conn} do
-      params = %{"username" => "romulo", "password" => "123123"}
+      params = [username: "romulo", password: "123123"]
 
       response =
         conn
-        |> post("/api/signup", params)
-        |> json_response(:created)
+        |> post(Routes.user_path(conn, :create, params))
+        |> json_response(201)
 
-      assert response == "banana"
+      assert %{
+               "message" => "User Created",
+               "token" => _token,
+               "user" => %{"id" => _id, "inserted_at" => _date, "user" => "romulo"}
+             } = response
     end
   end
 end
