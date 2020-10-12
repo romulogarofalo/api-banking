@@ -5,7 +5,7 @@ config :api_banking, ApiBanking.Repo,
   username: "root",
   password: "root",
   database: "api_banking_dev",
-  hostname: "localhost",
+  hostname: "db",
   show_sensitive_data_on_connection_error: true,
   pool_size: 10
 

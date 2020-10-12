@@ -1,0 +1,36 @@
+# Version of docker-compose
+version: '3'
+
+# Containers we are going to run
+services:
+  api:
+    build:
+      context: .
+    environment:
+      PGUSER: root
+      PGPASSWORD: root
+      PGDATABASE: api_banking_dev
+      PGPORT: 5432
+      # Hostname of our Postgres container
+      PGHOST: db
+    ports:
+      - "4000:4000"
+    volumes:
+      - .:/usr/src/api_banking
+    depends_on:
+      - db
+  db:
+    image: postgres:9.6
+    environment:
+      # Set user/password for Postgres
+      POSTGRES_USER: root
+      POSTGRES_PASSWORD: root
+      POSTGRES_DB: api_banking_dev
+      # Set a path where Postgres should store the data
+      PGDATA: /var/lib/postgresql/data/pgdata
+    restart: always
+    volumes:
+      - pgdata:/var/lib/postgresql/data
+# Define the volumes
+volumes:
+  pgdata:
