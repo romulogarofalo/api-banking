@@ -36,3 +36,7 @@ config :api_banking, ApiBankingWeb.Auth.Guardian,
 
 config :money,
   default_currency: :BRL
+
+config :api_banking, ApiBankingWeb.Auth.Pipeline,
+  module: ApiBankingWeb.Auth.Guardian,
+  error_handler: ApiBankingWeb.Auth.ErrorHandler
