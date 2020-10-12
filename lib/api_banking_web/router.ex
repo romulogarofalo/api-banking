@@ -5,19 +5,22 @@ defmodule ApiBankingWeb.Router do
     plug :accepts, ["json"]
   end
 
+  pipeline :auth do
+    plug ApiBankingWeb.Auth.Pipeline
+  end
+
   scope "/api", ApiBankingWeb do
     pipe_through :api
 
     post "/signup", UserController, :create
     post "/login", UserController, :login
-    post "/transaction", TransactionController, :create
   end
 
-  # scope "/api", ApiBankingWeb do
-  #   pipe_through [:api, :authenticate]
+  scope "/api", ApiBankingWeb do
+    pipe_through [:api, :auth]
 
-  #   post "/transaction", TransactionController, :create
-  # end
+    post "/transaction", TransactionController, :create
+  end
 
   # Enables LiveDashboard only for development
   #
