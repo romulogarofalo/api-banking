@@ -17,6 +17,8 @@ defmodule ApiBankingWeb.UserController do
   def login(conn, params) do
     with {:ok, user} <- ApiBanking.get_user(params),
          {:ok, token, _decoded} <- Guardian.encode_and_sign(user) do
+      IO.inspect("send email to confirm sign up")
+
       conn
       |> put_status(:ok)
       |> render("authenticated.json", %{user: user, token: token})
