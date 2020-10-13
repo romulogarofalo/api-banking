@@ -1,16 +1,26 @@
-FROM elixir:1.6
+FROM elixir:1.9.1
 
-ENV HOME=/usr/src/api_banking
+RUN apt-get update && \
+apt-get -y install sudo
+
+ADD . /app
+
 RUN apt-get update && apt-get upgrade -y && \
-    apt-get install -y inotify-tools build-essential postgresql-client && \
-    apt-get install -y erlang-parsetools && \
-    mix local.rebar --force && \
+    apt-get install -y inotify-tools build-essential postgresql-client
+
+RUN  mix local.rebar --force && \
     mix local.hex --force
 
-COPY ./docker-entrypoint.sh /
-RUN chmod +x /docker-entrypoint.sh
-ENTRYPOINT ["/docker-entrypoint.sh"]
+RUN mix archive.install https://github.com/phoenixframework/archives/raw/master/phx_new.ez --force
 
-ADD . $HOME
-WORKDIR $HOME
+WORKDIR /app
+
+RUN cd ../
+
+RUN mix deps.compile --include-children
+
+RUN mix compile
+
 EXPOSE 4000
+
+CMD ["./docker-entrypoint.sh"]
