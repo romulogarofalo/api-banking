@@ -15,8 +15,6 @@ RUN mix archive.install https://github.com/phoenixframework/archives/raw/master/
 
 WORKDIR /app
 
-RUN cd ../
-
 RUN mix deps.compile --include-children
 
 RUN mix compile

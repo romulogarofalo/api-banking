@@ -10,5 +10,6 @@ done
 # Ensure we have the basics...
 
 mix clean
+mix ecto.drop
 mix ecto.setup
 mix phx.server
