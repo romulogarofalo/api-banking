@@ -5,17 +5,30 @@ defmodule ApiBanking.User do
   schema "users" do
     field :password_hash, :string
     field :username, :string
+    field :permission, :string
     field :password, :string, virtual: true
     timestamps()
   end
 
-  @required_attrs [:username, :password]
+  @required_attrs [:username, :password, :permission]
 
   @doc false
   def changeset(user, attrs) do
     user
     |> cast(attrs, @required_attrs)
     |> validate_required(@required_attrs)
+    |> validate_change(:permission, fn :permission, permission ->
+      case permission do
+        permi when permi == "admin" ->
+          []
+
+        permi when permi == "user" ->
+          []
+
+        _ ->
+          [permission: "should be user or admin"]
+      end
+    end)
     |> unique_constraint(:username)
     |> put_password_hash()
   end
