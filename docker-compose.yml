@@ -16,9 +16,11 @@ services:
     ports:
       - "4000:4000"
     volumes:
-      - .:/usr/src/api_banking
+      - .:/app
     depends_on:
       - db
+    command: sleep infinity
+
   db:
     image: postgres:9.6
     environment:

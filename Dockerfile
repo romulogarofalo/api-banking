@@ -11,13 +11,7 @@ RUN apt-get update && apt-get upgrade -y && \
 RUN  mix local.rebar --force && \
     mix local.hex --force
 
-RUN mix archive.install https://github.com/phoenixframework/archives/raw/master/phx_new.ez --force
-
 WORKDIR /app
-
-RUN mix deps.compile --include-children
-
-RUN mix compile
 
 EXPOSE 4000
 
