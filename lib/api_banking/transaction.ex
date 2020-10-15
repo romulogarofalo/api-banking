@@ -3,6 +3,7 @@ defmodule ApiBanking.Transaction do
   import Ecto.Changeset
 
   alias ApiBanking.{Repo, User}
+  alias ApiBanking.Services.Balance
 
   schema "transactions" do
     field :amount, Money.Ecto.Amount.Type
@@ -19,7 +20,25 @@ defmodule ApiBanking.Transaction do
     transaction
     |> cast(attrs, @required_attrs)
     |> validate_required(@required_attrs)
+    |> check_balance_below_zero()
     |> get_ids_users()
+  end
+
+  defp check_balance_below_zero(changeset) do
+    IO.inspect(changeset)
+    IO.inspect("entrei na funcao")
+    %{changes: %{amount: %Money{amount: amount}}} = changeset
+    IO.inspect(amount)
+
+    validate_change(changeset, :username_sender_id, fn :username_sender_id, user_id ->
+      case Balance.getBalance(user_id) do
+        balance when balance - amount >= 0 ->
+          []
+
+        balance when balance - amount < 0 ->
+          [amount: "your account can't be below than 0 balance"]
+      end
+    end)
   end
 
   defp get_ids_users(changeset) do
