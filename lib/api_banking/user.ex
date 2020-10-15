@@ -17,7 +17,13 @@ defmodule ApiBanking.User do
     user
     |> cast(attrs, @required_attrs)
     |> validate_required(@required_attrs)
-    |> validate_change(:permission, fn :permission, permission ->
+    |> validate_permission()
+    |> unique_constraint(:username)
+    |> put_password_hash()
+  end
+
+  defp validate_permission(changeset) do
+    validate_change(changeset, :permission, fn :permission, permission ->
       case permission do
         permi when permi == "admin" ->
           []
@@ -29,8 +35,6 @@ defmodule ApiBanking.User do
           [permission: "should be user or admin"]
       end
     end)
-    |> unique_constraint(:username)
-    |> put_password_hash()
   end
 
   defp put_password_hash(changeset) do
