@@ -25,10 +25,7 @@ defmodule ApiBanking.Transaction do
   end
 
   defp check_balance_below_zero(changeset) do
-    IO.inspect(changeset)
-    IO.inspect("entrei na funcao")
     %{changes: %{amount: %Money{amount: amount}}} = changeset
-    IO.inspect(amount)
 
     validate_change(changeset, :username_sender_id, fn :username_sender_id, user_id ->
       case Balance.getBalance(user_id) do
