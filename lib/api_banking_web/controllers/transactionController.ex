@@ -6,7 +6,7 @@ defmodule ApiBankingWeb.TransactionController do
   def create(%{req_headers: headers} = conn, params) do
     user_sender_id = get_id_from_token(headers)
 
-    with {:ok, transaction} <- ApiBanking.create_transaction(params, user_sender_id) do
+    with {:ok, transaction} <- ApiBanking.Transaction.Create.call(params, user_sender_id) do
       conn
       |> put_status(:created)
       |> render("created.json", %{transaction: transaction})
