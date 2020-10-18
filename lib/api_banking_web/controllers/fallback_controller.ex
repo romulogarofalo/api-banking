@@ -11,6 +11,17 @@ defmodule ApiBankingWeb.FallbackController do
     |> render("400.json", changeset: changeset)
   end
 
+  def call(
+        conn,
+        {:error,
+         %Ecto.Changeset{errors: [username: {"has already been taken", _params}]} = changeset}
+      ) do
+    conn
+    |> put_status(409)
+    |> put_view(ApiBankingWeb.ChangesetView)
+    |> render("400.json", changeset: changeset)
+  end
+
   def call(conn, {:error, %Ecto.Changeset{errors: _errors} = changeset}) do
     conn
     |> put_status(422)
