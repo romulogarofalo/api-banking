@@ -20,6 +20,7 @@ defmodule ApiBankingWeb.Router do
     pipe_through [:api, :auth]
 
     post "/transaction", TransactionController, :create
+    post "/withdraw", WithdrawController, :create
   end
 
   # Enables LiveDashboard only for development

@@ -1,13 +1,15 @@
-defmodule ApiBakingWeb.WithdrawController do
+defmodule ApiBankingWeb.WithdrawController do
   use ApiBankingWeb, :controller
 
   action_fallback ApiBankingWeb.FallbackController
 
   def create(conn, params) do
-    {:ok, withdraw} = ApiBanking.Withdraw.Create.call(params)
+    %{id: user_id} = Guardian.Plug.current_resource(conn)
 
-    conn
-    |> put_status(:created)
-    |> render("created.json", %{withdraw: withdraw})
+    with {:ok, withdraw} <- ApiBanking.Withdraw.Create.call(params, user_id) do
+      conn
+      |> put_status(:created)
+      |> render("created.json", %{withdraw: withdraw})
+    end
   end
 end
