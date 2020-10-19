@@ -1,7 +1,7 @@
 defmodule ApiBankingWeb.Controllers.TransactionControllerTest do
   use ApiBankingWeb.ConnCase
   alias ApiBankingWeb.Auth.Guardian
-  alias ApiBanking.{User, Transaction}
+  alias ApiBanking.User
 
   describe "create" do
     setup %{conn: conn} do

@@ -8,10 +8,6 @@ defmodule ApiBanking.User.Get do
     |> handle_check(user)
   end
 
-  # defp valid_params(params) do
-  #  params
-  # end
-
   defp get_user_by_username(%{"password" => _password, "username" => username}) do
     Repo.get_by(User, %{username: username})
   end
@@ -24,6 +20,4 @@ defmodule ApiBanking.User.Get do
 
   defp handle_check(true, user), do: {:ok, user}
   defp handle_check(false, _user), do: {:error, message: "wrong credentials"}
-
-  # fazer funcao com pattern para true e false e retornando um ok com user ou error com message de wrong credentials
 end
