@@ -12,7 +12,7 @@ defmodule ApiBankingWeb.WithdrawView do
       }) do
     %{
       message: "Success withdraw",
-      transaction: %{
+      withdraw: %{
         id_transaction: id,
         amount: amount,
         inserted_at: inserted_at
