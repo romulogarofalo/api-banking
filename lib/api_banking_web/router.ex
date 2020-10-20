@@ -21,6 +21,7 @@ defmodule ApiBankingWeb.Router do
 
     post "/transaction", TransactionController, :create
     post "/withdraw", WithdrawController, :create
+    get "/reports/:initial_date/:final_date", ReportsController, :get
   end
 
   # Enables LiveDashboard only for development
