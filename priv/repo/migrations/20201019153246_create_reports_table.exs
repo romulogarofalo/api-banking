@@ -8,4 +8,4 @@ defmodule ApiBanking.Repo.Migrations.CreateReportsTable do
       timestamps()
     end
   end
-endre
+end
