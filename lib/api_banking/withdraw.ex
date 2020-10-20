@@ -17,7 +17,22 @@ defmodule ApiBanking.Withdraw do
     withdraw
     |> cast(attrs, @required_attrs)
     |> validate_required(@required_attrs)
+    |> validade_amount()
     |> check_balance_below_zero()
+  end
+
+  defp validade_amount(changeset) do
+    validate_change(changeset, :amount, fn :amount, money ->
+      IO.inspect(money)
+
+      case money do
+        %Money{amount: amount} when amount > 0 ->
+          []
+
+        %Money{amount: amount} when amount <= 0 ->
+          [amount: "the amount can't be below than 0"]
+      end
+    end)
   end
 
   defp check_balance_below_zero(changeset) do
