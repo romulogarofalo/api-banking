@@ -20,7 +20,7 @@ defmodule ApiBanking.MixProject do
   def application do
     [
       mod: {ApiBanking.Application, []},
-      extra_applications: [:logger, :runtime_tools]
+      extra_applications: [:logger, :runtime_tools, :quantum]
     ]
   end
 
@@ -46,7 +46,8 @@ defmodule ApiBanking.MixProject do
       {:guardian, "~> 2.0"},
       {:comeonin, "~> 4.1"},
       {:bcrypt_elixir, "~> 1.0"},
-      {:money, "~> 1.8"}
+      {:money, "~> 1.8"},
+      {:quantum, "~> 3.0"}
     ]
   end
 
