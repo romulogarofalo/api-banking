@@ -15,7 +15,7 @@ config :api_banking, ApiBankingWeb.Endpoint,
 
 config :api_banking, ApiBanking.Repo,
   adpter: Ecto.Adapter.Postgres,
-  url: "${DATABASE_URL}",
+  url: System.get_env("DATABASE_URL"),
   database: "",
   ssl: true,
   pool_size: 1
