@@ -13,6 +13,13 @@ config :api_banking, ApiBankingWeb.Endpoint,
   url: [host: "example.com", port: 80],
   cache_static_manifest: "priv/static/cache_manifest.json"
 
+config :api_banking, ApiBanking.Repo,
+  adpter: Ecto.Adapter.Postgres,
+  url: "${DATABASE_URL}",
+  database: "",
+  ssl: true,
+  pool_size: 1
+
 # Do not print debug messages in production
 config :logger, level: :info
 
@@ -52,4 +59,4 @@ config :logger, level: :info
 
 # Finally import the config/prod.secret.exs which loads secrets
 # and configuration from environment variables.
-import_config "prod.secret.exs"
+# import_config "prod.secret.exs"
