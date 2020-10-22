@@ -74,7 +74,7 @@ Routes
 
 ## database schema
 
-![database_schema](https://github.com/romulogarofalo/api_banking/blob/master/database_api_banking.png)
+![database_schema](https://github.com/romulogarofalo/api-banking/blob/main/images/database%20api%20banking.png)
 
 ## Useful Links
 [Linter used (credo)](https://github.com/rrrene/credo)  
