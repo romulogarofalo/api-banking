@@ -67,13 +67,14 @@ Routes
 |------------------------|--------------------------------------------|--------------|
 |/api/login              | login route and auth                       | POST         |
 |/api/signup             | register of new user                       | POST         |
-|/api/transaction        | create new wallet                          | POST         |
-|/api/withdraw           | get infos about the wallet                 | POST         |
+|/api/transaction        | create a new transfer                      | POST         |
+|/api/withdraw           | create a withdraw                          | POST         |
 |/api/reports            | only ADM can use to get the reports        | GET          |
 [for more datails here the link for Postman docs](https://documenter.getpostman.com/view/1994420/TVYDdJvF)
 
 ## database schema
 
+![database_schema](https://github.com/romulogarofalo/api_banking/blob/master/database_api_banking.png)
 
 ## Useful Links
 [Linter used (credo)](https://github.com/rrrene/credo)  
